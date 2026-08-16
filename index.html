@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>تدريب أونلاين مع ناصر الودعاني | برامج تمارين وتغذية مخصصة</title>
+<meta name="description" content="برنامج تمارين وتغذية مصمم لك أنت — مو نسخة جاهزة. متابعة ثابتة مع الكابتن ناصر الودعاني، لاعب ومدرب كمال أجسام من ١٣ سنة.">
+<meta property="og:title" content="تدريب أونلاين مع ناصر الودعاني">
+<meta property="og:description" content="برنامج تمارين وتغذية مبني على جسمك وجدولك. متابعة وتعديل مستمر لين توصل هدفك.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ar_SA">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#12100E;
+  --ink-2:#1B1815;
+  --ink-3:#262119;
+  --brass:#C8963E;
+  --brass-dim:#8C6A2C;
+  --bone:#EFEAE1;
+  --bone-2:#E2DACD;
+  --paper-ink:#211C15;
+  --muted:#8E8579;
+  --muted-dark:#6B6154;
+  --line-dark:rgba(200,150,62,.22);
+  --line-light:rgba(33,28,21,.16);
+  --display:'Readex Pro',system-ui,sans-serif;
+  --body:'IBM Plex Sans Arabic',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--body);
+  background:var(--ink);
+  color:var(--bone);
+  line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+.wrap{max-width:1060px;margin-inline:auto;padding-inline:22px}
+
+/* ---------- measuring tape rule : the signature ---------- */
+.tape{
+  height:26px;
+  background-image:
+    repeating-linear-gradient(to left,var(--brass) 0 1px,transparent 1px 13px),
+    repeating-linear-gradient(to left,var(--brass) 0 1px,transparent 1px 65px);
+  background-size:100% 8px,100% 15px;
+  background-position:bottom right;
+  background-repeat:repeat-x;
+  opacity:.5;
+  border-bottom:1px solid var(--line-dark);
+}
+.tape--light{
+  background-image:
+    repeating-linear-gradient(to left,var(--paper-ink) 0 1px,transparent 1px 13px),
+    repeating-linear-gradient(to left,var(--paper-ink) 0 1px,transparent 1px 65px);
+  opacity:.28;
+  border-bottom:1px solid var(--line-light);
+}
+
+/* ---------- shared section furniture ---------- */
+.band{padding-block:clamp(56px,9vw,104px)}
+.band--paper{background:var(--bone);color:var(--paper-ink)}
+.eyebrow{
+  font-family:var(--body);
+  font-size:12px;font-weight:600;letter-spacing:.16em;
+  color:var(--brass);
+  display:flex;align-items:center;gap:12px;
+  margin-bottom:20px;
+}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--line-dark)}
+.band--paper .eyebrow{color:var(--brass-dim)}
+.band--paper .eyebrow::after{background:var(--line-light)}
+h2{
+  font-family:var(--display);
+  font-weight:600;
+  font-size:clamp(26px,4.4vw,42px);
+  line-height:1.35;
+  letter-spacing:-.01em;
+  margin-bottom:14px;
+}
+.lede{color:var(--muted);max-width:56ch;font-size:16.5px}
+.band--paper .lede{color:var(--muted-dark)}
+
+/* ---------- hero ---------- */
+.hero{
+  position:relative;
+  padding-block:clamp(64px,12vw,120px) clamp(48px,8vw,80px);
+  background:
+    radial-gradient(120% 80% at 88% 8%,rgba(200,150,62,.15),transparent 62%),
+    var(--ink);
+  overflow:hidden;
+}
+.hero::before{
+  content:"";position:absolute;inset:0;
+  background-image:repeating-linear-gradient(to left,rgba(200,150,62,.05) 0 1px,transparent 1px 88px);
+  pointer-events:none;
+}
+.hero__inner{position:relative}
+.hero__kicker{
+  font-size:12.5px;font-weight:600;letter-spacing:.18em;
+  color:var(--brass);margin-bottom:26px;
+}
+h1{
+  font-family:var(--display);
+  font-weight:700;
+  font-size:clamp(34px,7.2vw,66px);
+  line-height:1.22;
+  letter-spacing:-.02em;
+  margin-bottom:22px;
+  max-width:16ch;
+}
+h1 em{font-style:normal;color:var(--brass);display:block}
+.hero__sub{
+  font-size:clamp(16px,2.1vw,19px);
+  color:#B8AE9F;max-width:50ch;margin-bottom:36px;
+}
+.cta-row{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+.btn{
+  display:inline-block;
+  font-family:var(--body);font-weight:600;font-size:16px;
+  padding:15px 34px;border-radius:2px;
+  text-decoration:none;border:1px solid transparent;
+  transition:transform .16s ease,background .16s ease,color .16s ease;
+}
+.btn--solid{background:var(--brass);color:#150F05}
+.btn--solid:hover{background:#DDA954;transform:translateY(-2px)}
+.btn--ghost{border-color:var(--line-dark);color:var(--bone)}
+.btn--ghost:hover{border-color:var(--brass);color:var(--brass)}
+.band--paper .btn--ghost{border-color:var(--line-light);color:var(--paper-ink)}
+
+/* ---------- credential strip ---------- */
+.creds{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border-top:1px solid var(--line-dark);
+  background:var(--ink-2);
+}
+.cred{padding:26px 20px;border-inline-start:1px solid var(--line-dark)}
+.cred:first-child{border-inline-start:0}
+.cred__n{
+  font-family:var(--display);font-weight:700;
+  font-size:clamp(20px,3vw,30px);color:var(--brass);
+  line-height:1.2;display:block;
+}
+.cred__l{font-size:13px;color:var(--muted);margin-top:6px;display:block;line-height:1.5}
+
+/* ---------- checklist ---------- */
+.checklist{list-style:none;margin-top:30px;display:grid;gap:2px}
+.checklist li{
+  padding:17px 0 17px 0;
+  border-bottom:1px solid var(--line-dark);
+  display:flex;gap:16px;align-items:flex-start;
+  font-size:16.5px;
+}
+.checklist li::before{
+  content:"";flex:none;width:9px;height:9px;margin-top:11px;
+  background:var(--brass);transform:rotate(45deg);
+}
+
+/* ---------- spec list (features) ---------- */
+.specs{display:grid;gap:0;margin-top:34px;border-top:1px solid var(--line-light)}
+.spec{
+  display:grid;grid-template-columns:190px 1fr;gap:28px;
+  padding:24px 0;border-bottom:1px solid var(--line-light);
+  align-items:baseline;
+}
+.spec__t{font-family:var(--display);font-weight:600;font-size:17px}
+.spec__d{color:var(--muted-dark);font-size:15.5px}
+.spec__d b{color:var(--paper-ink);font-weight:600}
+
+/* ---------- results ---------- */
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:34px}
+.shot{
+  aspect-ratio:4/5;border:1px dashed var(--line-dark);
+  background:var(--ink-2);border-radius:2px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:8px;color:var(--muted);font-size:13px;text-align:center;padding:16px;
+}
+.shot span:first-child{color:var(--brass-dim);font-size:11px;letter-spacing:.14em;font-weight:600}
+.quotes{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:34px}
+.quote{
+  background:var(--ink-2);border:1px solid var(--line-dark);
+  border-radius:2px;padding:26px;
+  border-inline-start:2px solid var(--brass);
+}
+.quote p{font-size:15.5px;color:#C4BAAB;margin-bottom:14px;font-style:italic}
+.quote cite{font-style:normal;font-size:13px;color:var(--muted);font-weight:600}
+
+/* ---------- packages ---------- */
+.toggle{
+  display:inline-flex;margin-top:30px;
+  border:1px solid var(--line-light);border-radius:2px;overflow:hidden;
+}
+.toggle button{
+  font-family:var(--body);font-size:14.5px;font-weight:600;
+  padding:12px 24px;background:transparent;color:var(--muted-dark);
+  border:0;cursor:pointer;border-inline-start:1px solid var(--line-light);
+  transition:background .15s,color .15s;
+}
+.toggle button:first-child{border-inline-start:0}
+.toggle button[aria-pressed="true"]{background:var(--paper-ink);color:var(--bone)}
+.packs{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:30px}
+.pack{
+  background:#fff;border:1px solid var(--line-light);border-radius:2px;
+  padding:28px 22px 24px;display:flex;flex-direction:column;position:relative;
+}
+.pack--hero{border-color:var(--brass);border-width:1.5px}
+.pack__tag{
+  position:absolute;top:-1px;inset-inline-start:22px;
+  background:var(--brass);color:#150F05;font-size:11px;font-weight:700;
+  letter-spacing:.08em;padding:4px 10px;
+}
+.pack__n{font-family:var(--display);font-weight:600;font-size:19px;margin-bottom:6px}
+.pack__for{font-size:13.5px;color:var(--muted-dark);min-height:44px;line-height:1.6}
+.pack__p{
+  font-family:var(--display);font-weight:700;
+  font-size:32px;color:var(--paper-ink);margin-top:16px;line-height:1.1;
+  font-variant-numeric:tabular-nums;
+}
+.pack__p small{font-size:14px;font-weight:500;color:var(--muted-dark)}
+.pack__per{font-size:12.5px;color:var(--muted-dark);margin-top:4px}
+.pack .btn{margin-top:20px;text-align:center;font-size:15px;padding:13px 20px}
+.pack--hero .btn{background:var(--brass);color:#150F05}
+.note{
+  margin-top:22px;font-size:13px;color:var(--muted-dark);
+  border-inline-start:2px solid var(--brass);padding-inline-start:14px;
+}
+
+/* ---------- choices ---------- */
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:32px}
+.choice{border:1px solid var(--line-light);border-radius:2px;padding:24px;background:rgba(255,255,255,.5)}
+.choice h3{font-family:var(--display);font-size:16px;font-weight:600;margin-bottom:14px}
+.choice ul{list-style:none;display:grid;gap:9px}
+.choice li{font-size:14.5px;color:var(--muted-dark);padding-inline-start:18px;position:relative}
+.choice li::before{content:"";position:absolute;inset-inline-start:0;top:10px;width:7px;height:1px;background:var(--brass-dim)}
+
+/* ---------- faq ---------- */
+.faq{margin-top:32px;border-top:1px solid var(--line-light)}
+details{border-bottom:1px solid var(--line-light)}
+summary{
+  cursor:pointer;list-style:none;padding:20px 0;
+  font-family:var(--display);font-weight:500;font-size:16.5px;
+  display:flex;justify-content:space-between;gap:20px;align-items:center;
+}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--brass-dim);font-size:22px;font-weight:400;flex:none}
+details[open] summary::after{content:"−"}
+details p{padding-bottom:22px;color:var(--muted-dark);font-size:15.5px;max-width:66ch}
+
+/* ---------- closing ---------- */
+.close{text-align:center;padding-block:clamp(60px,10vw,110px)}
+.close h2{max-width:20ch;margin-inline:auto}
+.close .lede{margin-inline:auto;margin-bottom:32px}
+footer{background:var(--ink-2);padding-block:38px;border-top:1px solid var(--line-dark)}
+.foot{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+.social{display:flex;gap:22px}
+.social a{color:var(--muted);text-decoration:none;font-size:14px;transition:color .15s}
+.social a:hover{color:var(--brass)}
+.copy{font-size:13px;color:var(--muted-dark)}
+
+/* ---------- sticky mobile cta ---------- */
+.sticky{
+  position:fixed;inset-inline:0;bottom:0;z-index:50;display:none;
+  padding:12px 16px calc(12px + env(safe-area-inset-bottom));
+  background:rgba(18,16,14,.94);backdrop-filter:blur(10px);
+  border-top:1px solid var(--line-dark);
+}
+.sticky .btn{display:block;text-align:center}
+
+.demo-flag{
+  background:var(--ink-3);color:var(--brass);
+  font-size:12.5px;text-align:center;padding:9px 16px;
+  border-bottom:1px solid var(--line-dark);letter-spacing:.02em;
+}
+
+a:focus-visible,button:focus-visible,summary:focus-visible{
+  outline:2px solid var(--brass);outline-offset:3px;
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;scroll-behavior:auto!important}
+}
+@media (max-width:900px){
+  .packs{grid-template-columns:1fr 1fr}
+  .spec{grid-template-columns:1fr;gap:6px}
+  .creds{grid-template-columns:1fr 1fr}
+  .cred:nth-child(3){border-inline-start:0}
+  .cred:nth-child(n+3){border-top:1px solid var(--line-dark)}
+}
+@media (max-width:620px){
+  .packs,.quotes,.choices{grid-template-columns:1fr}
+  .grid-3{grid-template-columns:1fr 1fr}
+  .sticky{display:block}
+  body{padding-bottom:76px}
+  .cta-row .btn{flex:1;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<div class="demo-flag">نسخة تجريبية — الأسعار وآراء المتدربين نصوص مؤقتة للعرض فقط</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero__inner">
+    <p class="hero__kicker">تدريب أونلاين · السعودية</p>
+    <h1>ما تحتاج برنامج أقوى.<em>تحتاج برنامج لك أنت.</em></h1>
+    <p class="hero__sub">تمارين وتغذية مبنية على جسمك، مستواك، وجدولك — مو ملف جاهز ينرسل للكل. ومتابعة تعدّل البرنامج معك كل عشرة أيام.</p>
+    <div class="cta-row">
+      <a class="btn btn--solid" href="#packages">اختر باقتك</a>
+      <a class="btn btn--ghost" href="#how">إيش يشمل الاشتراك؟</a>
+    </div>
+  </div>
+</section>
+
+<div class="creds">
+  <div class="cred"><span class="cred__n">١٣ سنة</span><span class="cred__l">لاعب ومدرب كمال أجسام ولياقة</span></div>
+  <div class="cred"><span class="cred__n">المركز الأول</span><span class="cred__l">بطولة المنطقة الوسطى ٢٠٢٤</span></div>
+  <div class="cred"><span class="cred__n">المركز الثاني</span><span class="cred__l">بطولة المملكة</span></div>
+  <div class="cred"><span class="cred__n">+[عدد]</span><span class="cred__l">متدرب ومتدربة</span></div>
+</div>
+
+<div class="tape"></div>
+
+<!-- WHO IS IT FOR -->
+<section class="band">
+  <div class="wrap">
+    <p class="eyebrow">لمين هذا البرنامج</p>
+    <h2>إذا وحدة من هذي تنطبق عليك، البرنامج لك</h2>
+    <ul class="checklist">
+      <li>تتمرن من فترة وما تشوف تغيّر حقيقي في جسمك</li>
+      <li>تحتار وش تاكل، وكم تاكل، ومتى</li>
+      <li>جربت برامج جاهزة وما ناسبت جسمك ولا جدولك</li>
+      <li>تبي تنزل دهون أو تبني عضل بطريقة صح ومستدامة — مو حرمان</li>
+      <li>تعرف وش تسوي نظريًا، بس تحتاج أحد يتابعك ويعدّل معك</li>
+    </ul>
+  </div>
+</section>
+
+<div class="tape"></div>
+
+<!-- RESULTS -->
+<section class="band">
+  <div class="wrap">
+    <p class="eyebrow">النتائج</p>
+    <h2>نتائج المتدربين</h2>
+    <p class="lede">كل صورة تحتها اسم، مدة، ونتيجة محددة. الرقم يقنع أكثر من الصورة لحالها.</p>
+
+    <div class="grid-3">
+      <div class="shot"><span>قبل / بعد</span><span>الاسم — ١٦ أسبوع<br>نزل ١٢ كجم دهون</span></div>
+      <div class="shot"><span>قبل / بعد</span><span>الاسم — ٢٠ أسبوع<br>زاد ٧ كجم عضل</span></div>
+      <div class="shot"><span>قبل / بعد</span><span>الاسم — ١٢ أسبوع<br>نزل ٩ كجم</span></div>
+      <div class="shot"><span>قبل / بعد</span><span>الاسم — ٢٤ أسبوع</span></div>
+      <div class="shot"><span>قبل / بعد</span><span>الاسم — ١٠ أسابيع</span></div>
+      <div class="shot"><span>قبل / بعد</span><span>الاسم — ١٨ أسبوع</span></div>
+    </div>
+
+    <div class="quotes">
+      <div class="quote">
+        <p>«نص رأي المتدرب — استبدله بالنص المكتوب داخل صور الردود الحالية. الآراء المحددة اللي فيها أرقام ومدة أقوى بكثير من العامة.»</p>
+        <cite>الاسم — ٦ أشهر مع البرنامج</cite>
+      </div>
+      <div class="quote">
+        <p>«نص رأي المتدرب — استبدله بالنص المكتوب داخل صور الردود الحالية.»</p>
+        <cite>الاسم — ٣ أشهر مع البرنامج</cite>
+      </div>
+      <div class="quote">
+        <p>«نص رأي المتدرب — استبدله بالنص المكتوب داخل صور الردود الحالية.»</p>
+        <cite>الاسم — ١٢ شهر مع البرنامج</cite>
+      </div>
+      <div class="quote">
+        <p>«نص رأي المتدرب — استبدله بالنص المكتوب داخل صور الردود الحالية.»</p>
+        <cite>الاسم — ٤ أشهر مع البرنامج</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT YOU GET : tonal switch to paper -->
+<div class="tape tape--light" style="background-color:var(--bone)"></div>
+<section class="band band--paper" id="how">
+  <div class="wrap">
+    <p class="eyebrow">الاشتراك</p>
+    <h2>وش بتستلم بالضبط</h2>
+    <p class="lede">كل بند تحت هو شي تستلمه فعليًا — مو وعد عام.</p>
+
+    <div class="specs">
+      <div class="spec">
+        <div class="spec__t">برنامج تمارين</div>
+        <div class="spec__d">جدول مبني على هدفك وعدد أيام تمرينك، موضّح بالجولات والعدات، ومع <b>فيديو لكل حركة</b>.</div>
+      </div>
+      <div class="spec">
+        <div class="spec__t">نظام غذائي</div>
+        <div class="spec__d">سعرات وماكروز محسوبة على هدفك، وطبيعة عملك، وروتينك اليومي.</div>
+      </div>
+      <div class="spec">
+        <div class="spec__t">متابعة وتعديل</div>
+        <div class="spec__d">تحديث للبرنامج <b>كل ١٠ أيام</b> عبر الواتساب، والتعديل حسب تقدمك نحو الهدف.</div>
+      </div>
+      <div class="spec">
+        <div class="spec__t">رد على استفساراتك</div>
+        <div class="spec__d">أي سؤال يوصلك رد عليه <b>خلال ٢٤ ساعة</b> كحد أقصى.</div>
+      </div>
+      <div class="spec">
+        <div class="spec__t">تصحيح الأداء</div>
+        <div class="spec__d">تعديل طريقة أدائك للتمرين إذا ما كانت صحيحة، وتمارين بديلة تستهدف نفس العضلة إذا ما ناسبك تمرين معين.</div>
+      </div>
+      <div class="spec">
+        <div class="spec__t">إرشاد المكملات</div>
+        <div class="spec__d">مساعدتك في اختيار المكملات المناسبة لك بناءً على نتائج تحاليلك.</div>
+      </div>
+    </div>
+
+    <div class="choices">
+      <div class="choice">
+        <h3>تختار نظام التغذية اللي يناسبك</h3>
+        <ul>
+          <li>نظام الماكروز</li>
+          <li>وجبات ثابتة</li>
+          <li>وجبات ثابتة مع سعرات حرة (المرونة)</li>
+        </ul>
+      </div>
+      <div class="choice">
+        <h3>تختار جدول التمرين اللي يناسبك</h3>
+        <ul>
+          <li>كامل الجسم — Full Body</li>
+          <li>دفع / سحب / أرجل — Push Pull Legs</li>
+          <li>علوي / سفلي — Upper Lower</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PACKAGES -->
+<section class="band band--paper" id="packages" style="padding-top:0">
+  <div class="wrap">
+    <p class="eyebrow">الباقات</p>
+    <h2>اختر هدفك، ونحن نبني الباقي</h2>
+    <p class="lede">كل الباقات تشمل نفس المميزات فوق. الفرق في الهدف اللي نبني عليه البرنامج.</p>
+
+    <div class="toggle" role="group" aria-label="مدة الاشتراك">
+      <button data-m="1" aria-pressed="false">شهر</button>
+      <button data-m="3" aria-pressed="false">٣ أشهر</button>
+      <button data-m="6" aria-pressed="true">٦ أشهر</button>
+      <button data-m="12" aria-pressed="false">سنة</button>
+    </div>
+
+    <div class="packs" style="grid-template-columns:repeat(2,1fr);max-width:700px">
+      <div class="pack pack--hero">
+        <span class="pack__tag">الأكثر اشتراكًا</span>
+        <div class="pack__n">الباقة الرئيسية</div>
+        <p class="pack__for">تمارين وتغذية ومتابعة كاملة — تختار هدفك عند التسجيل.</p>
+        <div class="pack__p" data-p1="599" data-p3="1609" data-p6="3109" data-p12="5859">٣١٠٩ <small>ر.س</small></div>
+        <div class="pack__per" data-per>٥١٨ ر.س / الشهر · وفّر ١٤٪</div>
+        <a class="btn btn--solid" href="#">اشترك الآن</a>
+      </div>
+      <div class="pack">
+        <div class="pack__n">الباقة الرئيسية للطلاب</div>
+        <p class="pack__for">نفس الباقة بالكامل، بسعر مخفض — تحتاج إثبات قيد.</p>
+        <div class="pack__p" data-p1="419" data-p3="1129" data-p6="2179" data-p12="4099">٢١٧٩ <small>ر.س</small></div>
+        <div class="pack__per" data-per>٣٦٣ ر.س / الشهر · وفّر ١٣٪</div>
+        <a class="btn btn--ghost" href="#">اشترك الآن</a>
+      </div>
+    </div>
+
+    <p class="note">تختار هدفك عند التسجيل: زيادة وزن · خسارة وزن · تضخيم · تنشيف · تغذية فقط. الدفع عبر مدى، آبل باي، والبطاقات الائتمانية.</p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="band band--paper" style="padding-top:0">
+  <div class="wrap">
+    <p class="eyebrow">أسئلة</p>
+    <h2>قبل ما تشترك</h2>
+    <div class="faq">
+      <details open><summary>هل البرنامج مناسب للمبتدئين؟</summary><p>[إجابتك هنا — وضّح كيف يختلف البرنامج بين مبتدئ ومتوسط ومتقدم.]</p></details>
+      <details><summary>هل لازم يكون عندي اشتراك نادي؟</summary><p>[إجابتك هنا — وضّح إذا فيه خيار تمرين بيت وإيش يحتاج من أدوات.]</p></details>
+      <details><summary>كيف تتم المتابعة؟ وكم مرة أتواصل معكم؟</summary><p>[إجابتك هنا — وحّد الإجابة مع القسم فوق: كل ١٠ أيام أو كل ١٥ يوم، مو الاثنين.]</p></details>
+      <details><summary>أنا مسافر كثير وجدولي متغير — ينفع؟</summary><p>[إجابتك هنا.]</p></details>
+      <details><summary>هل البرنامج للرجال فقط؟</summary><p>[إجابتك هنا — البرنامج للشباب والبنات، وضّح كيف تختلف المتابعة.]</p></details>
+      <details><summary>وش طرق الدفع؟ وهل الاشتراك يتجدد تلقائيًا؟</summary><p>[إجابتك هنا.]</p></details>
+      <details><summary>هل فيه استرجاع؟</summary><p>[إجابتك هنا — إن ما فيه استرجاع، قلها بوضوح. الغموض هنا يوقف اشتراكات أكثر من سياسة صارمة معلنة.]</p></details>
+    </div>
+  </div>
+</section>
+
+<div class="tape tape--light" style="background-color:var(--bone)"></div>
+
+<!-- CLOSE -->
+<section class="close">
+  <div class="wrap">
+    <h2>كل أسبوع تأجّل فيه هو أسبوع من نتيجة كان ممكن تشوفها</h2>
+    <p class="lede">اختر باقتك، عبّي استمارة قصيرة عن هدفك ومستواك، ويوصلك برنامجك.</p>
+    <a class="btn btn--solid" href="#packages">ابدأ الآن</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <div class="social">
+      <a href="#">انستقرام</a><a href="#">سناب شات</a><a href="#">تيك توك</a><a href="#">يوتيوب</a>
+    </div>
+    <p class="copy">جميع الحقوق محفوظة © ٢٠٢٦ ناصر الودعاني</p>
+  </div>
+</footer>
+
+<div class="sticky"><a class="btn btn--solid" href="#packages">اختر باقتك</a></div>
+
+<script>
+(function(){
+  var ar=['٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
+  function toAr(n){return String(n).replace(/[0-9]/g,function(d){return ar[+d];});}
+
+  var btns=document.querySelectorAll('.toggle button');
+  btns.forEach(function(b){
+    b.addEventListener('click',function(){
+      btns.forEach(function(x){x.setAttribute('aria-pressed','false');});
+      b.setAttribute('aria-pressed','true');
+      var m=b.dataset.m;
+      document.querySelectorAll('.pack').forEach(function(p){
+        var el=p.querySelector('.pack__p');
+        var total=+el.dataset['p'+m];
+        var monthly=+el.dataset.p1;
+        el.innerHTML=toAr(total)+' <small>ر.س</small>';
+        var per=Math.round(total/m);
+        var save=Math.round((1-(total/m)/monthly)*100);
+        p.querySelector('[data-per]').textContent =
+          m==='1' ? 'شهر واحد' : toAr(per)+' ر.س / الشهر · وفّر '+toAr(save)+'٪';
+      });
+    });
+  });
+})();
+</script>
+</body>
+</html>
