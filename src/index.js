@@ -88,7 +88,7 @@ async function handleCheckout(request, env) {
 
   if (!res.ok || !data?.IsSuccess || !data.Data?.InvoiceURL) {
     console.error("MyFatoorah SendPayment failed", res.status, bodyText);
-    return json({ error: "payment init failed" }, 502);
+    return json({ error: "payment init failed", debug_status: res.status, debug_body: bodyText }, 502);
   }
 
   return json({ url: data.Data.InvoiceURL });
