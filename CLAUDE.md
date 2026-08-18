@@ -11,7 +11,7 @@ some older references to "Pages Functions" below).
 index.html             hero, credentials, who it's for, results, reviews, about, packages, calorie calculator
 program.html            what the subscription includes
 faq.html                19 FAQs
-checkout.html            name + mobile form, reads ?tier=&months=&price= from the URL
+checkout.html            name (الاسم الثلاثي) + mobile + email form, reads ?tier=&months=&price= from the URL
 checkout-success.html   post-payment landing page (links to the intake form)
 checkout-error.html     payment-failed landing page
 src/index.js            Worker: /api/checkout and /api/webhook only — everything
@@ -108,7 +108,8 @@ Mifflin-St Jeor BMR × activity multiplier, on `index.html`.
 
 - Two package buttons on `index.html#packages` (`.js-checkout`, `data-tier="main"|"student"`)
   navigate to `checkout.html?tier=..&months=..&price=..` (price read from the currently
-  displayed `data-p{m}` value, for display only). That page collects name + mobile, then
+  displayed `data-p{m}` value, for display only). That page collects full name, mobile,
+  and email (all required — server-side validated too, `EMAIL_RE` in `src/index.js`), then
   `POST /api/checkout`. The server (`src/index.js`) looks up the price itself from a
   hardcoded table — **never trusts the price in the URL or request body.**
   (An earlier version of this used an in-page modal instead of a dedicated page — replaced

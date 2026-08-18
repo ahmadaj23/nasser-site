@@ -83,21 +83,25 @@ input:focus{outline:1px solid var(--sand)}
       '<h1>'+PACKAGE_LABEL[tier]+' — '+DURATION_LABEL[months]+'</h1>'+
       '<div class="price">'+price+' <small>ر.س</small></div>'+
     '</div>'+
-    '<label for="ckName">الاسم<input id="ckName" type="text" autocomplete="name"></label>'+
+    '<label for="ckName">الاسم الثلاثي<input id="ckName" type="text" autocomplete="name"></label>'+
     '<label for="ckMobile">رقم الجوال<input id="ckMobile" type="tel" inputmode="numeric" placeholder="05xxxxxxxx" autocomplete="tel"></label>'+
+    '<label for="ckEmail">البريد الإلكتروني<input id="ckEmail" type="email" inputmode="email" autocomplete="email"></label>'+
     '<p class="err" id="ckErr"></p>'+
     '<button class="btn" id="ckSubmit" type="button">متابعة للدفع</button>'+
     '<p class="note">راح تنتقل لصفحة الدفع الآمنة عبر MyFatoorah</p>';
 
   var ckName=document.getElementById('ckName'),
       ckMobile=document.getElementById('ckMobile'),
+      ckEmail=document.getElementById('ckEmail'),
       ckErr=document.getElementById('ckErr'),
       ckSubmit=document.getElementById('ckSubmit');
 
+  var EMAIL_RE=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
   ckSubmit.addEventListener('click',function(){
-    var name=ckName.value.trim(), mobile=ckMobile.value.replace(/\D/g,'');
-    if(!name || mobile.length<8){
-      ckErr.textContent='عبّي الاسم ورقم جوال صحيح';
+    var name=ckName.value.trim(), mobile=ckMobile.value.replace(/\D/g,''), email=ckEmail.value.trim();
+    if(!name || mobile.length<8 || !EMAIL_RE.test(email)){
+      ckErr.textContent='عبّي الاسم الثلاثي، رقم جوال صحيح، وبريد إلكتروني صحيح';
       ckErr.classList.add('show');
       return;
     }
@@ -107,7 +111,7 @@ input:focus{outline:1px solid var(--sand)}
     fetch('/api/checkout',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({tier:tier,months:+months,customerName:name,customerMobile:mobile})
+      body:JSON.stringify({tier:tier,months:+months,customerName:name,customerMobile:mobile,customerEmail:email})
     }).then(function(r){ return r.json().then(function(d){ return {ok:r.ok,d:d}; }); })
       .then(function(res){
         if(res.ok && res.d.url){ window.location.href=res.d.url; return; }

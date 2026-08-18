@@ -18,6 +18,7 @@ const PACKAGE_LABEL = {
 };
 
 const DURATION_LABEL = { 1: "شهر", 3: "3 أشهر", 6: "6 أشهر", 12: "سنة" };
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function json(data, status = 200) {
   return new Response(JSON.stringify(data), {
@@ -38,12 +39,16 @@ async function handleCheckout(request, env) {
   const months = Number(body.months);
   const customerName = String(body.customerName || "").trim();
   const customerMobile = String(body.customerMobile || "").replace(/\D/g, "");
+  const customerEmail = String(body.customerEmail || "").trim();
 
   const price = PRICES[tier]?.[months];
   if (!price) return json({ error: "invalid package" }, 400);
   if (!customerName) return json({ error: "missing customer name" }, 400);
   if (customerMobile.length < 8 || customerMobile.length > 12) {
     return json({ error: "invalid mobile number" }, 400);
+  }
+  if (!EMAIL_RE.test(customerEmail)) {
+    return json({ error: "invalid email" }, 400);
   }
 
   const origin = new URL(request.url).origin;
@@ -53,6 +58,7 @@ async function handleCheckout(request, env) {
     CustomerName: customerName,
     MobileCountryCode: "+966",
     CustomerMobile: customerMobile,
+    CustomerEmail: customerEmail,
     DisplayCurrencyIso: "SAR",
     NotificationOption: "LNK",
     Language: "ar",
@@ -127,6 +133,7 @@ function buildOrderEmail(order) {
   const lines = [
     `الاسم: ${order.customerName}`,
     `الجوال: ${order.customerMobile}`,
+    `البريد الإلكتروني: ${order.customerEmail}`,
     `الباقة: ${order.packageLabel}`,
     `المبلغ: ${order.amount} ر.س`,
     `رقم الفاتورة: ${order.invoiceId}`,
@@ -192,6 +199,7 @@ async function handleWebhook(request, env) {
     amount: invoice.InvoiceValue,
     customerName: invoice.CustomerName,
     customerMobile: invoice.CustomerMobile,
+    customerEmail: invoice.CustomerEmail,
     packageLabel: tier
       ? `${PACKAGE_LABEL[tier]} — ${DURATION_LABEL[months]}`
       : "غير معروف",
