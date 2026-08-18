@@ -1,8 +1,22 @@
 {
   "name": "nasser-site",
   "compatibility_date": "2026-08-18",
+  "main": "src/index.js",
   "assets": {
     "directory": "./",
-    "not_found_handling": "404-page"
-  }
+    "not_found_handling": "404-page",
+    "run_worker_first": ["/api/*"]
+  },
+  "kv_namespaces": [
+    {
+      "binding": "ORDERS",
+      "id": "fd5b94b921ab418c9d21af34369d326f"
+    }
+  ],
+  "send_email": [
+    {
+      "name": "SEND_EMAIL",
+      "destination_address": "coaching@nasserpt.com"
+    }
+  ]
 }

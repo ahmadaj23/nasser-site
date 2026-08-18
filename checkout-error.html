@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تعذر إتمام الدفع — ناصر الودعاني</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#131313;
+  --char:#2d2b28;
+  --sand:#cec8ae;
+  --warm:#9b978d;
+  --sand-dim:rgba(206,200,174,.16);
+  --sale:#D0342C;
+  --f:'Vazirmatn',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--f);background:var(--ink);color:var(--sand);line-height:1.8;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;-webkit-font-smoothing:antialiased}
+.card{max-width:460px;text-align:center;background:var(--char);border:1px solid var(--sand-dim);border-radius:10px;padding:44px 30px}
+.x{width:56px;height:56px;border-radius:50%;background:var(--sale);display:flex;align-items:center;justify-content:center;margin:0 auto 22px}
+.x svg{width:26px;height:26px}
+h1{font-size:24px;font-weight:800;margin-bottom:12px}
+p{color:var(--warm);font-size:15px;margin-bottom:8px}
+.btn{display:inline-block;font-family:var(--f);font-weight:600;font-size:15.5px;padding:14px 30px;border-radius:3px;text-decoration:none;background:var(--sand);color:var(--ink);margin-top:24px;transition:background .16s,transform .16s}
+.btn:hover{background:#DDD7BE;transform:translateY(-2px)}
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="x" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </div>
+    <h1>تعذر إتمام الدفع</h1>
+    <p>لم تكتمل عملية الدفع. ما راح يتم خصم أي مبلغ. تقدر تحاول مرة ثانية.</p>
+    <a class="btn" href="index.html#packages">المحاولة مرة أخرى</a>
+  </div>
+</body>
+</html>

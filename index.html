@@ -347,7 +347,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var
         <p>تمارين وتغذية ومتابعة كاملة.</p>
         <div class="price" data-p1="599" data-p3="1609" data-p6="3109" data-p12="5859">1609 <small>ر.س</small></div>
         <div class="per" data-per>536 ر.س في الشهر <span class="off">(وفّر 10٪ عن الاشتراك الشهري)</span></div>
-        <a class="btn btn--solid" href="#">اشترك الآن</a>
+        <a class="btn btn--solid js-checkout" data-tier="main" href="#">اشترك الآن</a>
       </div>
       <div class="pack">
         <h3>باقة الطلاب</h3>
@@ -355,7 +355,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var
         <span class="tag tag--save" data-save>خصم 30٪</span>
         <div class="price" data-p1="419" data-p3="1129" data-p6="2179" data-p12="4099">1129 <small>ر.س</small></div>
         <div class="per" data-per>376 ر.س في الشهر <span class="off">(وفّر 10٪ عن الاشتراك الشهري)</span></div>
-        <a class="btn btn--ghost" href="#">اشترك الآن</a>
+        <a class="btn btn--ghost js-checkout" data-tier="student" href="#">اشترك الآن</a>
       </div>
     </div>
     <p class="note">الدفع عبر مدى، آبل باي، والبطاقات الائتمانية — ومتاح تقسيط مبلغ الاشتراك عبر تابي.</p>
@@ -420,10 +420,12 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var
 <script>
 (function(){
   var tb=document.querySelectorAll('.toggle button');
+  var curM='3';
   tb.forEach(function(b){b.addEventListener('click',function(){
     tb.forEach(function(x){x.setAttribute('aria-pressed','false');});
     b.setAttribute('aria-pressed','true');
     var m=b.dataset.m, main=null;
+    curM=m;
     document.querySelectorAll('.pack').forEach(function(p){
       var el=p.querySelector('.price'), t=+el.dataset['p'+m];
       if(main===null) main=t;
@@ -441,6 +443,15 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var
       if(pop) pop.classList.toggle('tag--hide', m!=='3');
     });
   });});
+
+  document.querySelectorAll('.js-checkout').forEach(function(a){
+    a.addEventListener('click',function(e){
+      e.preventDefault();
+      var pack=a.closest('.pack'),
+          price=pack.querySelector('.price').dataset['p'+curM];
+      location.href='checkout.html?tier='+a.dataset.tier+'&months='+curM+'&price='+price;
+    });
+  });
 
   var bg=document.getElementById('burger'), mn=document.getElementById('menu');
   if(bg&&mn){
