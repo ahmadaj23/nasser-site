@@ -49,6 +49,12 @@ Logo is embedded as a **CSS mask** (white PNG + `background: var(--sand)`), so i
 recolours with the accent automatically. Two variants: full lockup (nav), N mark
 (testimonial cards).
 
+**Nav lockup replaced 2026-08-18** — now the "NTR" wordmark (owner-supplied PNG,
+`NTR-B@4x-scaled.png.webp`), superseding the "Nasser Alwadani" text lockup from the
+v0.1 guideline PDF for this one asset. `.logo--lock` only; the testimonial-card N
+mark (`.logo--mark`) is untouched and still the old asset — confirm with the owner
+before assuming it should follow.
+
 ## Layout conventions
 
 - `<html dir="rtl" lang="ar">` — use CSS logical properties (`inset-inline-start`, not `left`)
