@@ -223,18 +223,6 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var
   body{padding-bottom:76px}
   .cta .btn{flex:1;text-align:center}
 }
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;z-index:60;padding:20px}
-.modal[aria-hidden="false"]{display:flex}
-.modal__card{background:var(--char);border:1px solid var(--sand-dim);border-radius:8px;padding:28px;max-width:360px;width:100%}
-.modal__card h3{font-size:19px;font-weight:700;margin-bottom:6px}
-.modal__pkg{font-size:13.5px;color:var(--warm);margin-bottom:18px}
-.modal__card label{display:block;font-size:13px;margin-top:14px}
-.modal__card input{width:100%;margin-top:6px;padding:11px 12px;border-radius:4px;border:1px solid var(--sand-dim);background:var(--ink);color:var(--sand);font-family:var(--f);font-size:14.5px}
-.modal__card input:focus{outline:1px solid var(--sand)}
-.modal__err{color:var(--sale);font-size:13px;margin-top:12px}
-.modal__actions{display:flex;gap:10px;margin-top:22px}
-.modal__actions .btn{flex:1;text-align:center;padding:13px 20px;font-size:14.5px}
-.modal__actions .btn:disabled{opacity:.6;cursor:default;transform:none}
 </style>
 </head>
 <body>
@@ -429,20 +417,6 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var
 
 <div class="sticky"><a class="btn btn--solid" href="#packages">اختر باقتك</a></div>
 
-<div class="modal" id="checkoutModal" aria-hidden="true">
-  <div class="modal__card">
-    <h3>معلوماتك</h3>
-    <p class="modal__pkg" id="modalPkg"></p>
-    <label for="ckName">الاسم<input id="ckName" type="text" autocomplete="name"></label>
-    <label for="ckMobile">رقم الجوال<input id="ckMobile" type="tel" inputmode="numeric" placeholder="05xxxxxxxx" autocomplete="tel"></label>
-    <p class="modal__err" id="ckErr" hidden></p>
-    <div class="modal__actions">
-      <button class="btn btn--solid" id="ckSubmit" type="button">متابعة للدفع</button>
-      <button class="btn btn--ghost" id="ckCancel" type="button">إلغاء</button>
-    </div>
-  </div>
-</div>
-
 <script>
 (function(){
   var tb=document.querySelectorAll('.toggle button');
@@ -470,66 +444,13 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var
     });
   });});
 
-  var PACKAGE_LABEL={main:'الباقة الرئيسية',student:'باقة الطلاب'};
-  var DURATION_LABEL={1:'شهر',3:'3 أشهر',6:'6 أشهر',12:'سنة'};
-  var modal=document.getElementById('checkoutModal'),
-      modalPkg=document.getElementById('modalPkg'),
-      ckName=document.getElementById('ckName'),
-      ckMobile=document.getElementById('ckMobile'),
-      ckErr=document.getElementById('ckErr'),
-      ckSubmit=document.getElementById('ckSubmit'),
-      ckCancel=document.getElementById('ckCancel'),
-      curTier=null;
-
-  function openModal(tier){
-    curTier=tier;
-    modalPkg.textContent=PACKAGE_LABEL[tier]+' — '+DURATION_LABEL[curM];
-    ckErr.hidden=true;
-    ckName.value=''; ckMobile.value='';
-    modal.setAttribute('aria-hidden','false');
-    ckName.focus();
-  }
-  function closeModal(){ modal.setAttribute('aria-hidden','true'); }
-
   document.querySelectorAll('.js-checkout').forEach(function(a){
     a.addEventListener('click',function(e){
       e.preventDefault();
-      openModal(a.dataset.tier);
+      var pack=a.closest('.pack'),
+          price=pack.querySelector('.price').dataset['p'+curM];
+      location.href='checkout.html?tier='+a.dataset.tier+'&months='+curM+'&price='+price;
     });
-  });
-  ckCancel.addEventListener('click',closeModal);
-  modal.addEventListener('click',function(e){ if(e.target===modal) closeModal(); });
-  document.addEventListener('keydown',function(e){
-    if(e.key==='Escape' && modal.getAttribute('aria-hidden')==='false') closeModal();
-  });
-
-  ckSubmit.addEventListener('click',function(){
-    var name=ckName.value.trim(), mobile=ckMobile.value.replace(/\D/g,'');
-    if(!name || mobile.length<8){
-      ckErr.textContent='عبّي الاسم ورقم جوال صحيح';
-      ckErr.hidden=false;
-      return;
-    }
-    ckErr.hidden=true;
-    ckSubmit.disabled=true;
-    ckSubmit.textContent='جاري التحويل...';
-    fetch('/api/checkout',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({tier:curTier,months:+curM,customerName:name,customerMobile:mobile})
-    }).then(function(r){ return r.json().then(function(d){ return {ok:r.ok,d:d}; }); })
-      .then(function(res){
-        if(res.ok && res.d.url){ window.location.href=res.d.url; return; }
-        ckErr.textContent='صار خطأ، حاول مرة ثانية';
-        ckErr.hidden=false;
-        ckSubmit.disabled=false;
-        ckSubmit.textContent='متابعة للدفع';
-      }).catch(function(){
-        ckErr.textContent='تعذر الاتصال، تأكد من الإنترنت وحاول مرة ثانية';
-        ckErr.hidden=false;
-        ckSubmit.disabled=false;
-        ckSubmit.textContent='متابعة للدفع';
-      });
   });
 
   var bg=document.getElementById('burger'), mn=document.getElementById('menu');

@@ -11,6 +11,7 @@ some older references to "Pages Functions" below).
 index.html             hero, credentials, who it's for, results, reviews, about, packages, calorie calculator
 program.html            what the subscription includes
 faq.html                19 FAQs
+checkout.html            name + mobile form, reads ?tier=&months=&price= from the URL
 checkout-success.html   post-payment landing page (links to the intake form)
 checkout-error.html     payment-failed landing page
 src/index.js            Worker: /api/checkout and /api/webhook only — everything
@@ -106,10 +107,15 @@ Mifflin-St Jeor BMR × activity multiplier, on `index.html`.
 ## Checkout / payments
 
 - Two package buttons on `index.html#packages` (`.js-checkout`, `data-tier="main"|"student"`)
-  open a small modal (name + mobile), then `POST /api/checkout`. The server (`src/index.js`)
-  looks up the price itself from a hardcoded table — **never trusts a client-sent price.**
-- **That price table is duplicated** between `src/index.js` (`PRICES`) and this file's
-  Pricing section. If pricing changes, update both.
+  navigate to `checkout.html?tier=..&months=..&price=..` (price read from the currently
+  displayed `data-p{m}` value, for display only). That page collects name + mobile, then
+  `POST /api/checkout`. The server (`src/index.js`) looks up the price itself from a
+  hardcoded table — **never trusts the price in the URL or request body.**
+  (An earlier version of this used an in-page modal instead of a dedicated page — replaced
+  2026-08-18, so if you see modal-related CSS/JS referenced anywhere it's stale.)
+- **That price table is duplicated three ways**: `src/index.js` (`PRICES`, authoritative),
+  `index.html`'s `data-p1/p3/p6/p12` attributes (display), and this file's Pricing section.
+  If pricing changes, update all three.
 - Payment method: hosted MyFatoorah page (`SendPayment` → redirect to `InvoiceURL`).
   No Tabby yet (deferred by owner's choice, 2026-08-18) — mada/cards/Apple Pay only.
 - **Test tokens only work against `apitest.myfatoorah.com`, not a country-specific live

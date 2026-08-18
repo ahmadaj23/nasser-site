@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>إتمام الاشتراك — ناصر الودعاني</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#131313;
+  --char:#2d2b28;
+  --sand:#cec8ae;
+  --warm:#9b978d;
+  --sand-dim:rgba(206,200,174,.16);
+  --cta:#0F7A55;
+  --cta-hi:#0C6547;
+  --sale:#D0342C;
+  --f:'Vazirmatn',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--f);background:var(--ink);color:var(--sand);line-height:1.8;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:420px;width:100%}
+.back{display:inline-block;font-size:13.5px;color:var(--warm);text-decoration:none;margin-bottom:18px}
+.back:hover{color:var(--sand)}
+.card{background:var(--char);border:1px solid var(--sand-dim);border-radius:10px;padding:30px}
+.summary{border-bottom:1px solid var(--sand-dim);padding-bottom:20px;margin-bottom:22px}
+.summary .eyebrow{font-size:12.5px;color:var(--warm);letter-spacing:.03em}
+.summary h1{font-size:21px;font-weight:700;margin-top:6px}
+.summary .price{font-size:28px;font-weight:800;color:var(--sand);margin-top:10px}
+.summary .price small{font-size:15px;font-weight:600;color:var(--warm)}
+label{display:block;font-size:13px;margin-top:16px}
+label:first-of-type{margin-top:0}
+input{width:100%;margin-top:6px;padding:12px 13px;border-radius:4px;border:1px solid var(--sand-dim);background:var(--ink);color:var(--sand);font-family:var(--f);font-size:15px}
+input:focus{outline:1px solid var(--sand)}
+.err{color:var(--sale);font-size:13px;margin-top:14px;display:none}
+.err.show{display:block}
+.btn{display:block;width:100%;font-family:var(--f);font-weight:600;font-size:16px;padding:15px 20px;border-radius:3px;text-align:center;border:1px solid transparent;cursor:pointer;background:var(--cta);color:#fff;margin-top:22px;transition:background .16s,transform .16s}
+.btn:hover{background:var(--cta-hi);transform:translateY(-2px)}
+.btn:disabled{opacity:.6;cursor:default;transform:none}
+.note{font-size:12.5px;color:var(--warm);margin-top:16px;text-align:center}
+.empty{text-align:center;padding:20px 0}
+.empty p{color:var(--warm);margin-bottom:20px}
+.empty a{color:var(--sand);font-weight:600}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="back" href="index.html#packages">‹ رجوع للباقات</a>
+    <div class="card">
+      <div id="content"></div>
+    </div>
+  </div>
+
+<script>
+(function(){
+  var PACKAGE_LABEL={main:'الباقة الرئيسية',student:'باقة الطلاب'};
+  var DURATION_LABEL={1:'شهر',3:'3 أشهر',6:'6 أشهر',12:'سنة'};
+  var params=new URLSearchParams(location.search);
+  var tier=params.get('tier');
+  var months=params.get('months');
+  var price=params.get('price');
+  var content=document.getElementById('content');
+
+  var validTier=PACKAGE_LABEL.hasOwnProperty(tier);
+  var validMonths=DURATION_LABEL.hasOwnProperty(months);
+  var validPrice=price && /^\d+$/.test(price);
+
+  if(!validTier || !validMonths || !validPrice){
+    content.innerHTML =
+      '<div class="empty">'+
+        '<p>اختر باقتك أولاً من صفحة الباقات.</p>'+
+        '<a href="index.html#packages">الرجوع لاختيار الباقة</a>'+
+      '</div>';
+    return;
+  }
+
+  content.innerHTML =
+    '<div class="summary">'+
+      '<p class="eyebrow">إتمام الاشتراك</p>'+
+      '<h1>'+PACKAGE_LABEL[tier]+' — '+DURATION_LABEL[months]+'</h1>'+
+      '<div class="price">'+price+' <small>ر.س</small></div>'+
+    '</div>'+
+    '<label for="ckName">الاسم<input id="ckName" type="text" autocomplete="name"></label>'+
+    '<label for="ckMobile">رقم الجوال<input id="ckMobile" type="tel" inputmode="numeric" placeholder="05xxxxxxxx" autocomplete="tel"></label>'+
+    '<p class="err" id="ckErr"></p>'+
+    '<button class="btn" id="ckSubmit" type="button">متابعة للدفع</button>'+
+    '<p class="note">راح تنتقل لصفحة الدفع الآمنة عبر MyFatoorah</p>';
+
+  var ckName=document.getElementById('ckName'),
+      ckMobile=document.getElementById('ckMobile'),
+      ckErr=document.getElementById('ckErr'),
+      ckSubmit=document.getElementById('ckSubmit');
+
+  ckSubmit.addEventListener('click',function(){
+    var name=ckName.value.trim(), mobile=ckMobile.value.replace(/\D/g,'');
+    if(!name || mobile.length<8){
+      ckErr.textContent='عبّي الاسم ورقم جوال صحيح';
+      ckErr.classList.add('show');
+      return;
+    }
+    ckErr.classList.remove('show');
+    ckSubmit.disabled=true;
+    ckSubmit.textContent='جاري التحويل...';
+    fetch('/api/checkout',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({tier:tier,months:+months,customerName:name,customerMobile:mobile})
+    }).then(function(r){ return r.json().then(function(d){ return {ok:r.ok,d:d}; }); })
+      .then(function(res){
+        if(res.ok && res.d.url){ window.location.href=res.d.url; return; }
+        ckErr.textContent='صار خطأ، حاول مرة ثانية';
+        ckErr.classList.add('show');
+        ckSubmit.disabled=false;
+        ckSubmit.textContent='متابعة للدفع';
+      }).catch(function(){
+        ckErr.textContent='تعذر الاتصال، تأكد من الإنترنت وحاول مرة ثانية';
+        ckErr.classList.add('show');
+        ckSubmit.disabled=false;
+        ckSubmit.textContent='متابعة للدفع';
+      });
+  });
+})();
+</script>
+</body>
+</html>
