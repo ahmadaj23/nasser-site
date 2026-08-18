@@ -1,19 +1,33 @@
 # Nasser Alwadani — coaching site
 
 Arabic (RTL) landing site for an online fitness coaching business in Saudi Arabia.
-Static HTML, no build step, deployed on Cloudflare Pages from this repo.
+Static HTML, no build step, deployed as a **Cloudflare Worker with static assets**
+(`wrangler.jsonc`, built via Workers Builds git integration — not Pages, despite
+some older references to "Pages Functions" elsewhere in this file).
 
 ## Files
 
 ```
-index.html     hero, credentials, who it's for, results, reviews, about, packages, calorie calculator
-program.html   what the subscription includes
+index.html     hero, credentials, results, reviews, packages, calorie calculator
+program.html   what the subscription includes, who it's for
+about.html     about the coach (bio, record) — split out from index.html 2026-08-18
 faq.html       19 FAQs
 ```
 
-Each file is standalone and contains its **own full copy** of the CSS and JS.
-Any shared change (nav, colours, footer, script) must be applied to all three.
+Each HTML file is standalone and contains its **own full copy** of the CSS and JS.
+Any shared change (nav, colours, footer, script) must be applied to every page.
 This duplication is the main technical debt — see Tasks.
+
+## Nav
+
+Kept deliberately short (owner's instruction, 2026-08-18): only links that go to a
+**different page**, plus two explicit exceptions that stay in the nav even though
+they're anchors on `index.html` — اشترك الآن (`#packages`) and حاسبة السعرات (`#calc`),
+because the owner wants those reachable from everywhere. Anchors into other
+in-page sections (`#results`, `#reviews`) were dropped from the nav for this reason —
+the sections themselves still exist on `index.html`, they're just not nav-linked.
+Current nav, in order: عن ناصر (`about.html`) · البرنامج (`program.html`) ·
+اشترك الآن · حاسبة السعرات · الأسئلة (`faq.html`).
 
 ## Brand
 
@@ -68,7 +82,7 @@ Two tiers, four durations. Student is exactly 30% off at every duration.
 - **No client names, durations, or personal details** anywhere. Owner's explicit instruction.
 - Before/after images carry no captions.
 - FAQ answers are the coach's own words, taken from the previous site. Don't rewrite them.
-- The "about" section contains biographical claims sourced from public web pages
+- `about.html` contains biographical claims sourced from public web pages
   (football, Al Nassr spell, karate, 2024 placings). **Unverified by the owner.**
 
 ## Calorie calculator
@@ -86,10 +100,11 @@ Mifflin-St Jeor BMR × activity multiplier, on `index.html`.
 
 1. **Split embedded assets out.** Photos and logo are base64 data URIs — each page is
    ~400–530 KB. Move to `/images/`, reference by path. Cuts size ~3× and makes photos swappable.
-2. **Migrate to Astro.** Removes the three-copies-of-everything problem. Cloudflare Pages
-   builds it natively; fill in the build command that's currently blank.
+2. **Migrate to Astro.** Removes the copy-pasted-everything problem — now five HTML
+   pages each carrying their own CSS/JS. This is now a Worker (see above), not Pages —
+   an Astro migration would need its own Worker/assets setup.
 3. **MyFatoorah checkout.** All four `اشترك الآن` buttons currently `href="#"` and do nothing.
-   Needs `/functions/api/checkout.js` and `/functions/api/webhook.js` (Cloudflare Pages Functions).
+   Needs Worker routes (not Pages Functions) for `/api/checkout` and `/api/webhook`.
 4. Consider a short summary of what's included on `index.html` above the packages —
    splitting it to `program.html` removed the strongest argument from the purchase path.
 
