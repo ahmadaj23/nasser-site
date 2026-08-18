@@ -102,15 +102,19 @@ Mifflin-St Jeor BMR × activity multiplier, on `index.html`.
 - Verify the webhook signature before trusting any payment callback. Redirect-only
   integration will silently lose paid orders when someone closes the browser.
 
+## Resolved decisions
+
+- **Response time is 24 hours max, except Thursday and Friday** (his days off). Reflected
+  in `program.html`'s "رد على استفساراتك" spec.
+- **Domain consolidation: `nassercoaching.com` (current deploy) is the one that stays.**
+  The other three (`nasser-alwadani.com`, `nasser-pt.com`, `nasserpt.com`) should eventually
+  301 to it — except `nasserpt.com`, which hosts the coaching Google Workspace email and must
+  **never** be repointed.
+- **Discount ladder stays as-is.** 10% at 3 months, 13% at 6, 18% at 12 — no change wanted.
+- **No تغذية فقط (nutrition-only) package exists currently.** The pricing-parity concern
+  doesn't apply until one is introduced.
+
 ## Open questions for the owner
 
 - **Follow-up interval: 10 days or 15?** `program.html` says 10. The older site says both,
   in two places on the same page. Needs a decision, not a guess.
-- **24-hour response vs "closed Thursday and Friday"** — these contradict each other.
-- **Domain consolidation.** Four domains exist for one business: `nasser-alwadani.com`
-  (old WordPress), `nasser-pt.com` (older Next.js funnel), `nasserpt.com` (hosts the
-  coaching Google Workspace email — **do not point this anywhere**), `nassercoaching.com`
-  (current deploy). Only one should survive; the rest should 301 to it.
-- **Discount ladder is shallow.** 10% at 3 months, 13% at 6, 18% at 12. Too little reward
-  for a 4× longer commitment; likely pushes people to short durations.
-- **تغذية فقط is priced the same as the full package** — less delivered, same price.
