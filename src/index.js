@@ -1,6 +1,10 @@
 import { EmailMessage } from "cloudflare:email";
 
-const MYFATOORAH_BASE = "https://api-sa.myfatoorah.com";
+// Test tokens only work against this sandbox host, not the country-specific
+// live one (e.g. api-sa.myfatoorah.com) — that mismatch returns a generic
+// 500 from MyFatoorah with no useful detail. Update this alongside the
+// token when switching to a live credential.
+const MYFATOORAH_BASE = "https://apitest.myfatoorah.com";
 
 // Server-side source of truth. Never trust a price sent by the client.
 const PRICES = {
@@ -88,7 +92,7 @@ async function handleCheckout(request, env) {
 
   if (!res.ok || !data?.IsSuccess || !data.Data?.InvoiceURL) {
     console.error("MyFatoorah SendPayment failed", res.status, bodyText);
-    return json({ error: "payment init failed", debug_status: res.status, debug_body: bodyText }, 502);
+    return json({ error: "payment init failed" }, 502);
   }
 
   return json({ url: data.Data.InvoiceURL });

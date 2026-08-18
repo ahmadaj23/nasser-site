@@ -112,6 +112,12 @@ Mifflin-St Jeor BMR × activity multiplier, on `index.html`.
   Pricing section. If pricing changes, update both.
 - Payment method: hosted MyFatoorah page (`SendPayment` → redirect to `InvoiceURL`).
   No Tabby yet (deferred by owner's choice, 2026-08-18) — mada/cards/Apple Pay only.
+- **Test tokens only work against `apitest.myfatoorah.com`, not a country-specific live
+  host like `api-sa.myfatoorah.com`.** Hitting the live host with a test token doesn't
+  fail cleanly (no 401) — MyFatoorah returns a generic 500 with no useful detail. Found
+  by bisecting the request payload down to nothing and still failing; confirmed by
+  switching only the base URL. `MYFATOORAH_BASE` in `src/index.js` must change together
+  with the token when a live credential eventually replaces the test one.
 - **Webhook design deliberately does not do HMAC signature verification.** `/api/webhook`
   treats MyFatoorah's callback as nothing more than a hint to re-check — it always calls
   `GetPaymentStatus` back with our own token before trusting anything, and only acts on
